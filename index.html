@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain Club · Multimedia University of Kenya</title>
+    <!-- Font Awesome Icons (v6 free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts: Inter & Space Grotesk for tech feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafd;
+            color: #0b1e33;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        /* WADA inspired – clean, bold, with deep blues and accents */
+        :root {
+            --primary: #0a2a44;        /* deep navy */
+            --primary-light: #1e3a5f;
+            --accent: #3b7cbf;          /* vibrant blue */
+            --accent-glow: #5f9cea;
+            --neutral-light: #f0f4fa;
+            --text-dark: #0b1e33;
+            --text-muted: #2d3a4f;
+            --card-bg: #ffffff;
+            --border-light: #dde3ed;
+            --shadow-sm: 0 8px 20px rgba(0,20,50,0.06);
+            --shadow-hover: 0 14px 30px rgba(0,40,80,0.12);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* ----- header / logo banner ----- */
+        .logo-banner {
+            background: linear-gradient(145deg, var(--primary) 0%, #123456 100%);
+            border-radius: 2.5rem 2.5rem 2rem 2rem;
+            padding: 3rem 3rem 2.8rem;
+            margin: 2rem 0 1.5rem;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .logo-banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(90, 170, 255, 0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .logo-block {
+            font-family: 'Space Grotesk', monospace;
+            font-weight: 600;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .logo-block .line1 {
+            font-size: 4.5rem;
+            display: block;
+            background: linear-gradient(135deg, #ffffff, #d6e6ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
+        }
+
+        .logo-block .line2 {
+            font-size: 3.8rem;
+            display: block;
+            color: #aad0ff;
+            margin-top: -0.3rem;
+            letter-spacing: 0.02em;
+            text-shadow: 0 2px 10px rgba(0,120,255,0.4);
+        }
+
+        .banner-tagline {
+            color: rgba(255,255,255,0.8);
+            font-weight: 400;
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            border-left: 4px solid var(--accent-glow);
+            padding-left: 1.2rem;
+            max-width: 500px;
+        }
+
+        /* navigation */
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: flex-end;
+            align-items: center;
+            margin: 1.5rem 0 2rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: var(--text-dark);
+            transition: color 0.2s;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links .btn-outline {
+            border: 1.5px solid var(--accent);
+            border-radius: 40px;
+            padding: 0.5rem 1.5rem;
+            background: transparent;
+            color: var(--accent);
+        }
+
+        .nav-links .btn-outline:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* cards and sections */
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin: 3rem 0 1.5rem;
+            color: var(--primary);
+            position: relative;
+        }
+
+        .section-title i {
+            color: var(--accent);
+            margin-right: 0.7rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 2rem;
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0,0,0,0.02);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card h3 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+        }
+
+        .card ul {
+            list-style: none;
+        }
+
+        .card ul li {
+            margin-bottom: 0.7rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .card ul li::before {
+            content: "▹";
+            color: var(--accent);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .mission-vision {
+            background: linear-gradient(145deg, #ffffff, #f5f9ff);
+        }
+
+        .badge {
+            background: var(--neutral-light);
+            border-radius: 60px;
+            padding: 0.3rem 1.2rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            color: var(--primary-light);
+            display: inline-block;
+            border: 1px solid #cbd5e1;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 60px;
+            padding: 0.9rem 2rem;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.15s, transform 0.1s;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 4px 8px rgba(0,35,70,0.1);
+        }
+
+        .btn i {
+            font-size: 1.1rem;
+        }
+
+        .btn-accent {
+            background: var(--accent);
+        }
+
+        .btn-accent:hover {
+            background: #2c62a5;
+        }
+
+        .btn:hover {
+            transform: scale(1.02);
+            background: var(--primary-light);
+        }
+
+        .btn-outline-light {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+            box-shadow: none;
+        }
+
+        .btn-outline-light:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        .flex-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            align-items: center;
+            margin: 2rem 0;
+        }
+
+        .download-section {
+            background: var(--primary);
+            color: white;
+            border-radius: 2.5rem;
+            padding: 3rem 3rem;
+            margin: 4rem 0;
+            background-image: radial-gradient(circle at 100% 0%, rgba(90,170,255,0.15) 0%, transparent 40%);
+        }
+
+        .download-section h2 {
+            font-size: 2.2rem;
+            font-weight: 600;
+        }
+
+        .register-card {
+            background: white;
+            border-radius: 2rem;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+        }
+
+        footer {
+            background: var(--primary);
+            color: #b0c6dd;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            border-radius: 3rem 3rem 0 0;
+            text-align: center;
+        }
+
+        footer a {
+            color: #d6e6ff;
+        }
+
+        /* constitution modal / view */
+        .constitution-preview {
+            background: #f1f6fd;
+            border-radius: 2rem;
+            padding: 2rem;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.9rem;
+            border: 1px solid var(--border-light);
+            margin: 2rem 0;
+            white-space: pre-wrap;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- logo banner (as image replacement) -->
+        <div class="logo-banner">
+            <div class="logo-block">
+                <span class="line1">BLOCKCHAIN</span>
+                <span class="line2">CLUB</span>
+            </div>
+            <div class="banner-tagline">
+                <i class="fas fa-cube" style="margin-right: 0.5rem;"></i> 
+                Multimedia University of Kenya · est. 2026
+            </div>
+        </div>
+
+        <!-- navigation -->
+        <div class="nav-links">
+            <a href="#mission"><i class="fas fa-bullseye"></i> Mission</a>
+            <a href="#objectives"><i class="fas fa-cubes"></i> Objectives</a>
+            <a href="#constitution"><i class="fas fa-file-contract"></i> Constitution</a>
+            <a href="#register" class="btn-outline"><i class="fas fa-user-plus"></i> Join</a>
+        </div>
+
+        <!-- mission & vision cards (from preamble & objectives) -->
+        <section id="mission">
+            <div class="section-title"><i class="fas fa-flag"></i> Vision & Mission</div>
+            <div class="grid-2">
+                <div class="card mission-vision">
+                    <h3><i class="fas fa-eye" style="color: var(--accent);"></i> Vision</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.6;">“We, the students of Multimedia University of Kenya, recognizing the growing importance of blockchain and emerging digital technologies, establish the Blockchain Club to promote learning, ethical engagement, and responsible innovation in accordance with the university’s statutes.”</p>
+                    <p style="margin-top: 1rem; color: var(--text-muted);"><i class="fas fa-quote-right"></i> </p>
+                </div>
+                <div class="card mission-vision">
+                    <h3><i class="fas fa-rocket" style="color: var(--accent);"></i> Mission</h3>
+                    <ul>
+                        <li>Promote understanding of blockchain & distributed ledgers.</li>
+                        <li>Provide a student-led platform for learning and practical exploration.</li>
+                        <li>Enhance technical & analytical skills through workshops, seminars, projects.</li>
+                        <li>Encourage innovation, creativity & responsible experimentation.</li>
+                        <li>Foster interdisciplinary collaboration across the university.</li>
+                    </ul>
+                    <p style="margin-top: 0.8rem;"><span class="badge"><i class="far fa-file"></i> Art. 5 objectives</span></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- specific activities highlights (from Art 6) -->
+        <section>
+            <div class="section-title"><i class="fas fa-calendar-alt"></i> Club activities</div>
+            <div class="grid-2">
+                <div class="card">
+                    <h3><i class="fas fa-laptop-code"></i> Workshops & Labs</h3>
+                    <p>Hand‑on coding labs, tutorials, demo sessions on blockchain systems, smart contracts, and DApps.</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-users"></i> Guest lectures & panels</h3>
+                    <p>Industry experts, researchers, and practitioners (university approved) share insights.</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-microchip"></i> Innovation challenges</h3>
+                    <p>Hackathons, project showcases, problem‑solving sprints with an educational focus.</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-book-open"></i> Study groups</h3>
+                    <p>Student‑led research discussions, reading sessions, and collaborative learning.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Constitution download & preview area -->
+        <section id="constitution">
+            <div class="download-section">
+                <h2><i class="fas fa-gavel"></i> Constitution (2026)</h2>
+                <p style="margin: 1rem 0 2rem; font-size: 1.2rem; opacity: 0.9;">Approved by the university · full governing document</p>
+                <div class="flex-row">
+                    <button class="btn btn-accent" id="downloadConstitutionBtn"><i class="fas fa-download"></i> Download .txt</button>
+                    <button class="btn btn-outline-light" id="togglePreviewBtn"><i class="fas fa-eye"></i> Show preview</button>
+                </div>
+                <!-- hidden preview (toggle) -->
+                <div id="constitutionPreviewBox" style="display: none; margin-top: 2rem;">
+                    <div class="constitution-preview" id="constitutionTextPreview">
+                        <!-- preview filled by js -->
+                    </div>
+                    <p style="font-size: 0.85rem; color: #bed9ff;"><i class="fas fa-info-circle"></i> Full constitution – plain text preview</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- registration / join card with Google form link -->
+        <section id="register">
+            <div class="register-card">
+                <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; justify-content: space-between;">
+                    <div>
+                        <span class="badge"><i class="fas fa-address-card"></i> membership 2026</span>
+                        <h2 style="font-size: 2rem; margin: 1rem 0; color: var(--primary);">Become a member</h2>
+                        <p style="font-size: 1.1rem; max-width: 550px;">Registration open to all registered students. Complete the official registration form to join the Blockchain Club community.</p>
+                        <div style="margin-top: 1.8rem;">
+                            <a href="https://forms.gle/qTxR37vfvCDGz7Tv8" target="_blank" class="btn btn-accent"><i class="fas fa-external-link-alt"></i> Registration form (Google)</a>
+                        </div>
+                    </div>
+                    <div style="background: var(--neutral-light); border-radius: 1.8rem; padding: 2rem; min-width: 200px;">
+                        <i class="fas fa-qrcode" style="font-size: 4rem; color: var(--accent); opacity: 0.6;"></i>
+                        <p style="font-weight: 500; margin-top: 0.5rem;">QR code <i class="far fa-smile"></i></p>
+                        <p style="font-size: 0.9rem;">(scan to open form)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- compliance note (summary) -->
+        <section style="margin: 2.5rem 0; background: #ecf3fa; border-radius: 2rem; padding: 1.5rem 2rem;">
+            <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center;">
+                <i class="fas fa-shield-alt" style="font-size: 2.5rem; color: var(--accent);"></i>
+                <p><strong>Operating in full compliance</strong> with Multimedia University Statutes, Schedule 10. All activities approved by Dean of Students. No cryptocurrency trading, investments, or fundraising. Strictly educational.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- footer -->
+    <footer>
+        <div class="container">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 1.5rem;">
+                <div style="font-size: 2rem; font-weight: 600; letter-spacing: 2px;">BLOCKCHAIN CLUB</div>
+                <div style="display: flex; gap: 2.5rem; flex-wrap: wrap;">
+                    <a href="#"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                </div>
+                <p>© 2026 Blockchain Club – Multimedia University of Kenya. <br> For inquiries: <i class="far fa-envelope"></i> blockchainmmu@gmail.com </p>
+               
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for download & preview -->
+    <script>
+        (function() {
+            // Full constitution text (cleaned from provided .docx content, preserving structure)
+            const constitutionFull = `PREAMBLE
+
+We, the students of Multimedia University of Kenya, recognizing the growing importance of blockchain and emerging digital technologies in education, innovation, and society, hereby establish the Blockchain Club to promote learning, ethical engagement, and responsible innovation in accordance with the Statutes and regulations of the University.
+
+PRELIMINARY PROVISIONS
+
+ART. [1] NAME AND INTEPRETATION
+a) This Constitution shall be cited as the Constitution of the Blockchain Club of Multimedia University of Kenya.
+b) In this Constitution, unless the context otherwise requires, the terms defined in Articles 2 and 3 shall have the meanings assigned to them.
+
+ART. [2] DEFINITIONS
+a) "University" means Multimedia University of Kenya.
+b) "Club" means the Blockchain Club of Multimedia University of Kenya.
+c) "Member" means any registered student of the University who has fulfilled the requirements for membership.
+d) "Executive Committee" means the elected body responsible for the management of the Club.
+e) "Annual General Meeting (AGM)" means the meeting of members held once every academic year.
+f) "Dean of Students (DOS)" means the office responsible for student clubs.
+g) "Patron" means a member of staff appointed to guide the Club.
+
+ART. [3] APPLICATION OF DEFINITIONS
+a) Words importing the singular shall include the plural.
+b) Words importing one gender shall include all genders.
+c) Any term not defined shall be interpreted per University regulations.
+
+NAME
+
+ART. [4] The club shall be officially known as "Blockchain club"
+
+OBJECTIVES
+
+ART. [5] The objectives of the Blockchain club shall be to:
+a) Promote understanding and awareness of blockchain, distributed ledger technologies, and related emerging technologies.
+b) Provide a student-led platform for learning, discussion, and practical exploration.
+c) Enhance members' technical and analytical skills by facilitating workshops, seminars, tutorials.
+d) Encourage innovation, creativity, and responsible experimentation.
+e) Foster interdisciplinary collaboration among students.
+f) Promote ethical, responsible, and lawful use of blockchain.
+g) Create opportunities for knowledge exchange with industry and academia, subject to University approval.
+
+SPECIFIC CLUB ACTIVITIES
+
+ART. [6] The Blockchain Club may undertake:
+a) Educational forums, workshops, seminars.
+b) Practical learning sessions including coding labs, showcases.
+c) Guest lectures, panel discussions with professionals (with DOS approval).
+d) Student-led research discussions, study groups.
+e) Innovation challenges, hackathons for educational purposes.
+f) Collaborate with other recognized clubs/departments.
+g) Outreach and awareness activities.
+h) Submit a schedule of activities to DOS each semester.
+
+COMPLIANCE
+
+ART. [7] COMPLIANCE WITH UNIVERSITY REGULATIONS
+a) The Club shall operate in full compliance with University Statutes.
+b) The Club shall not operate unless duly registered.
+c) All activities shall conform to this Constitution.
+d) A schedule of planned activities shall be submitted to DOS.
+e) No activity without requisite approval.
+f) External engagement subject to prior approval.
+
+ART. [8] RESTRICTIONS AND LIMITATIONS
+a) No district, national, or partisan political activities.
+b) No cryptocurrency trading, investment schemes, fundraising, token sales.
+c) No raising funds on campus without written VC approval.
+d) No use of University name/logo without approval.
+e) Discussions strictly educational; no financial advice.
+f) University facilities used per regulations.
+
+MEMBERSHIP
+
+ART. [9] ELIGIBILITY – open to all registered students.
+ART. [10] CATEGORIES – ordinary members; honorary members (non-student, non-voting) with DOS approval.
+ART. [11] REGISTRATION – upon completion & payment of KES 100 (may be reviewed by AGM).
+ART. [12] RIGHTS – participate, attend meetings, vote, vie for positions.
+ART. [13] DUTIES – uphold Constitution, promote Club, participate responsibly.
+ART. [14] TERMINATION – withdrawal, ceasing to be student, expulsion.
+ART. [15] DISCIPLINARY ACTION – fair process.
+ART. [16] READMISSION – conditions set by leadership & DOS.
+
+RECORDS
+
+ART. [17] CLUB RECORDS – register, minutes, activities, accounts, budgets, etc.
+ART. [18] CUSTODY – kept by Secretary, available to DOS.
+ART. [19] FINANCIAL RECORDS – accurate, presented when required.
+ART. [20] TRANSITION – orderly handover.
+
+CLUB GOVERNANCE
+
+ART. [21] GOVERNING BODY – Executive Committee.
+ART. [22] COMPOSITION – Chairperson, Vice Chairperson, Secretary, Treasurer, Organising Secretary, two ordinary members (gender balance).
+ART. [23] PATRON – academic/admin staff appointed per university.
+ART. [24] ELECTION – democratic, annual.
+ART. [25] TERM – one academic year, re-eligible.
+ART. [26] POWERS & DUTIES – per Constitution & Uni regulations.
+ART. [27] MEETINGS – general meetings as necessary.
+ART. [28] QUORUM – 1/3 general, simple majority executive.
+ART. [29] REMOVAL – misconduct, due process.
+ART. [30] VACANCIES – interim or by-election.
+
+EXECUTIVE COMMITTEE (detailed roles)
+ART. [31] CHAIRPERSON – schedule meetings, agenda, quorum, report to Board, supervise.
+ART. [32] VICE CHAIRPERSON – assist, assume duties in absence.
+ART. [33] SECRETARY – maintain register, notices, minutes, notify DOS, webpage.
+ART. [34] TREASURER – keep financial records, procedures, budget, statutory returns, internal audit.
+ART. [35] ORGANISING SECRETARY – coordinate events, ensure approvals.
+ART. [36] ORDINARY MEMBERS – support, liaise.
+ART. [37] ACCOUNTABILITY – collectively/individually accountable.
+
+MEETINGS, AGM, ELECTIONS, FINANCE, DISSOLUTION, INTERPRETATION, AMENDMENT (abbreviated for download)
+... (full document contains details up to ART. 65, all members are bound)
+
+ANNUAL GENERAL MEETING: supreme decision-making body, receives reports, elects, approves plans.
+
+ELECTIONS: simple majority, secret ballot, disputes resolved by Executive Committee & University.
+
+FINANCE: self-supporting, membership fees, approved grants. No profit distribution.
+
+DISSOLUTION: by 2/3 members or DOS notice if inactive; assets to University.
+
+AMENDMENT: 2/3 members present + university approval.
+
+— End of Constitution (2026) —`;
+
+            // set preview text
+            const previewDiv = document.getElementById('constitutionTextPreview');
+            if (previewDiv) {
+                previewDiv.textContent = constitutionFull;
+            }
+
+            // download function
+            function downloadConstitution() {
+                const blob = new Blob([constitutionFull], { type: 'text/plain;charset=utf-8' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'Blockchain_Club_Constitution_2026.txt';
+                link.click();
+                URL.revokeObjectURL(link.href);
+            }
+
+            // toggle preview
+            const toggleBtn = document.getElementById('togglePreviewBtn');
+            const previewBox = document.getElementById('constitutionPreviewBox');
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', function() {
+                    if (previewBox.style.display === 'none' || previewBox.style.display === '') {
+                        previewBox.style.display = 'block';
+                        toggleBtn.innerHTML = '<i class="fas fa-eye-slash"></i> Hide preview';
+                    } else {
+                        previewBox.style.display = 'none';
+                        toggleBtn.innerHTML = '<i class="fas fa-eye"></i> Show preview';
+                    }
+                });
+            }
+
+            // download button event
+            const downloadBtn = document.getElementById('downloadConstitutionBtn');
+            if (downloadBtn) {
+                downloadBtn.addEventListener('click', downloadConstitution);
+            }
+
+            // optional: QR code effect (just visual)
+        })();
+    </script>
+
+    <!-- ensure preview is hidden by default -->
+    <style>
+        #constitutionPreviewBox { display: none; }
+    </style>
+</body>
+</html>
